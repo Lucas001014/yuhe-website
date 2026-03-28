@@ -361,6 +361,43 @@
             background: #4096FF;
             transform: translateY(-2px);
         }
+        .download-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .download-btn-android {
+            background: #1677FF;
+            color: white;
+        }
+        .download-btn-android:hover {
+            background: #4096FF;
+        }
+        .download-btn-ios {
+            background: #333;
+            color: white;
+        }
+        .download-btn-ios:hover {
+            background: #555;
+        }
+        .download-note {
+            color: #999;
+            font-size: 12px;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -492,25 +529,58 @@
     <div class="download-modal" id="downloadModal">
         <div class="download-modal-content">
             <div class="download-modal-icon">🚀</div>
-            <h3 class="download-modal-title">应用即将上线</h3>
-            <p class="download-modal-text">遇合 App 正在紧锣密鼓开发中，<br>即将登陆各大应用商店，敬请期待！</p>
-            <button class="download-modal-btn" onclick="hideDownloadModal()">我知道了</button>
+            <h3 class="download-modal-title">下载遇合 App</h3>
+            <p class="download-modal-text">点击下方按钮直接下载安装包</p>
+            <div class="download-modal-buttons">
+                <a href="#" class="download-btn download-btn-android" id="androidDownload" download>
+                    📱 Android 版本下载
+                </a>
+                <a href="#" class="download-btn download-btn-ios" id="iosDownload">
+                    🍎 iOS 版本（即将上线）
+                </a>
+            </div>
+            <p class="download-note">Android 用户下载后直接安装即可<br>iOS 版本即将上架 App Store</p>
+            <button class="download-modal-btn" onclick="hideDownloadModal()" style="margin-top: 20px;">关闭</button>
         </div>
     </div>
 
     <script>
+        // ==========================================
+        // 下载链接配置
+        // ==========================================
+        // 使用 GitHub Releases 的 latest 自动获取最新版本
+        const APK_DOWNLOAD_URL = 'https://github.com/Lucas001014/yuhe-app/releases/latest/download/yuhe.apk';
+        
+        // 方式2: 如果有其他CDN链接，可以直接使用
+        // const APK_DOWNLOAD_URL = 'https://your-cdn.com/yuhe.apk';
+        
+        // iOS App Store 链接（上架后更新）
+        const IOS_DOWNLOAD_URL = '#'; // 例如: 'https://apps.apple.com/app/yuhe/id123456789'
+        
+        // 显示下载弹窗
         function showDownloadModal() {
             document.getElementById('downloadModal').classList.add('show');
         }
+        
         function hideDownloadModal() {
             document.getElementById('downloadModal').classList.remove('show');
         }
+        
         // 点击弹窗外部关闭
         document.getElementById('downloadModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 hideDownloadModal();
             }
         });
+        
+        // 直接下载 APK
+        function downloadAndroid() {
+            window.location.href = APK_DOWNLOAD_URL;
+        }
+        
+        // 设置下载按钮
+        document.getElementById('androidDownload').href = APK_DOWNLOAD_URL;
+        document.getElementById('iosDownload').href = IOS_DOWNLOAD_URL;
     </script>
 </body>
 </html>
